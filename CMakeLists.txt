@@ -8,6 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(GTest REQUIRED)
 
 add_executable(counters ${CMAKE_SOURCE_DIR}/src/main.cpp
+    src/pcmreader.h src/pcmreader.cpp
 )
 
 include(GNUInstallDirs)
