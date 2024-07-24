@@ -2,8 +2,9 @@
 
 PCMReader::PCMReader() { }
 
-int PCMReader::getCountOfBreaks(const std::string &filePath) {
+std::tuple <int, std::vector<std::string>> PCMReader::getCountOfBreaks(const std::string &filePath) {
     std::ifstream file(filePath, std::ios::binary);
+    std::vector<std::string> breaks;
     if (file.is_open()) {
         uint32_t num;
         std::vector<uint32_t> prev_nums;
@@ -21,7 +22,11 @@ int PCMReader::getCountOfBreaks(const std::string &filePath) {
                 curCounter = (curCounter + 1) % 32;
             } else {
                 if (prev_nums[curCounter] + 1 != num) {
-                    std::cout << filePath << ' ' << curCounter << ' ' << prev_nums[curCounter] + 1 << ' ' << num << std::endl;
+                    breaks.push_back(
+                        filePath + ' '
+                        + std::to_string(curCounter) + ' '
+                        + std::to_string(prev_nums[curCounter] + 1) + ' '
+                        + std::to_string(num) + '\n');
                     CountOfBreaks++;
                 }
                 prev_nums[curCounter] = num;
@@ -29,7 +34,6 @@ int PCMReader::getCountOfBreaks(const std::string &filePath) {
             }
         }
         file.close();
-        return CountOfBreaks;
+        return std::make_tuple(CountOfBreaks, breaks);
     }
-    return -1;
 }

@@ -5,14 +5,13 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
+#include <tuple>
 
 class PCMReader
 {
 public:
     PCMReader();
-    int getCountOfBreaks(const std::string &);
-private:
-    std::string filePath;
+    std::tuple <int, std::vector<std::string>> getCountOfBreaks(const std::string &);
 };
 
 #endif // PCMREADER_H

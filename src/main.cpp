@@ -8,15 +8,27 @@ using namespace std;
 int main()
 {
     vector<string> filesPaths;
-    vector<future<int>> futures;
+    vector<future<tuple<int, vector<string>>>> futures;
 
-    for (auto & file : filesystem::directory_iterator("data_raw_32_rand_ch_offs_break")) {
+    for (auto & file : filesystem::directory_iterator("data_raw_32_rand_ch_offs")) {
         string filePath = file.path().string();
         futures.push_back(async(&PCMReader::getCountOfBreaks, PCMReader(), filePath));
         filesPaths.push_back(filePath);
     }
+
+    vector<int> countOfBreaks;
     for (unsigned int i = 0; i < filesPaths.size(); i++) {
-        cout << "Count of breaks of file " << filesPaths[i] << ": " << futures[i].get() << endl;
+        int countOfBreaksInFile;
+        vector<string> breaks;
+        tie(countOfBreaksInFile, breaks) = futures[i].get();
+        for (auto it = breaks.begin(); it != breaks.end(); it++) {
+            cout << *it;
+        }
+        countOfBreaks.push_back(countOfBreaksInFile);
+    }
+
+    for (unsigned int i = 0; i < countOfBreaks.size(); i++) {
+        cout << "Count of breaks of file " << filesPaths[i] << ": " << countOfBreaks[i] << endl;
     }
     // thread t1(&PCMReader::getCountOfBreaks, PCMReader(), filesPaths[0]);
     // thread t2(&PCMReader::getCountOfBreaks, PCMReader(), filesPaths[1]);
