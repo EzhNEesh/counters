@@ -1,3 +1,6 @@
+#include <fstream>
+#include <iostream>
+
 #include "pcmreader.h"
 
 PCMReader::PCMReader() { }
