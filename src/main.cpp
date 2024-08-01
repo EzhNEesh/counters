@@ -7,11 +7,25 @@ int main()
 {
     std::vector<std::string> filesPaths;
     std::vector<std::future<std::tuple<int, std::vector<std::string>>>> futures;
+    std::string directoryPath = "data_raw_32_rand_ch_offs";
 
-    for (auto & file : std::filesystem::directory_iterator("data_raw_32_rand_ch_offs")) {
+    std::filesystem::directory_iterator dirIterator;
+    try {
+        dirIterator = std::filesystem::directory_iterator{directoryPath};
+    } catch (std::filesystem::filesystem_error &excp) {
+        std::cout << excp.what() << std::endl;
+        return 1;
+    }
+
+    for (auto & file : dirIterator) {
         std::string filePath = file.path().string();
         futures.push_back(async(&PCMReader::getCountOfBreaks, PCMReader(), filePath));
         filesPaths.push_back(filePath);
+    }
+
+    if (filesPaths.size() == 0) {
+        std::cout << "Directory is empty" << std::endl;
+        return 1;
     }
 
     std::vector<int> countOfBreaks;
