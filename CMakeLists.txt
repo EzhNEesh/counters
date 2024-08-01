@@ -21,5 +21,5 @@ target_link_libraries(${PROJECT_NAME}-test gtest::gtest)
 gtest_discover_tests( ${PROJECT_NAME}-test WORKING_DIRECTORY
     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
-file(COPY ${CMAKE_SOURCE_DIR}/test/data_raw_32_rand_ch_offs DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data_raw_32_rand_ch_offs)
-file(COPY ${CMAKE_SOURCE_DIR}/test/data_raw_32_rand_ch_offs_break DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data_raw_32_rand_ch_offs_break)
+file(COPY ${CMAKE_SOURCE_DIR}/test/data_raw_32_rand_ch_offs DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+file(COPY ${CMAKE_SOURCE_DIR}/test/data_raw_32_rand_ch_offs_break DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
