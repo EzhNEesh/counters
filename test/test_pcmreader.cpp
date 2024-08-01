@@ -2,8 +2,8 @@
 #include <vector>
 #include <filesystem>
 
-#include "../src/pcmreader.h"
-#include "../src/pcmreader.cpp"
+#include "pcmreader.h"
+#include "pcmreader.cpp"
 
 TEST(PCMReader_Group, BreaksDontExist_Test) {
     std::string directoryPath = "../data_raw_32_rand_ch_offs";
