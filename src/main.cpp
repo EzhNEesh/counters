@@ -18,6 +18,10 @@ int main()
     }
 
     for (auto & file : dirIterator) {
+        if (std::filesystem::is_directory(file)) {
+            std::cout << "Directory contain another directory" << std::endl;
+            return 1;
+        }
         std::string filePath = file.path().string();
         futures.push_back(async(&PCMReader::getCountOfBreaks, PCMReader(), filePath));
         filesPaths.push_back(filePath);
