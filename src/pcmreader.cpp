@@ -35,5 +35,7 @@ std::tuple <int, std::vector<std::string>> PCMReader::getCountOfBreaks(const std
         }
         file.close();
         return std::make_tuple(CountOfBreaks, breaks);
+    } else {
+        throw std::runtime_error("Could not open file  " + filePath);
     }
 }
