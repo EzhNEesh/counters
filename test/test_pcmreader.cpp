@@ -6,7 +6,7 @@
 #include "../src/pcmreader.cpp"
 
 TEST(PCMReader_Group, BreaksDontExist_Test) {
-    std::string directoryPath = "data_raw_32_rand_ch_offs";
+    std::string directoryPath = "../data_raw_32_rand_ch_offs";
     PCMReader pcmReader;
 
     std::filesystem::directory_iterator dirIterator;
@@ -23,7 +23,7 @@ TEST(PCMReader_Group, BreaksDontExist_Test) {
 }
 
 TEST(PCMReader_Group, BreaksExist_Test) {
-    std::string directoryPath = "data_raw_32_rand_ch_offs_break";
+    std::string directoryPath = "../data_raw_32_rand_ch_offs_break";
     PCMReader pcmReader;
 
     std::filesystem::directory_iterator dirIterator;
