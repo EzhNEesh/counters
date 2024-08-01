@@ -11,10 +11,12 @@ add_executable(counters ${CMAKE_SOURCE_DIR}/src/main.cpp
     src/pcmreader.h src/pcmreader.cpp
 )
 
-include(GNUInstallDirs)
-install(TARGETS counters
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
+include( GoogleTest )
+enable_testing()
+file( GLOB TestSources ${CMAKE_SOURCE_DIR}/test/*.cpp )
 
-target_link_libraries(counters gtest::gtest)
+add_executable( ${PROJECT_NAME}-test ${TestSources} )
+
+target_link_libraries(${PROJECT_NAME}-test gtest::gtest)
+gtest_discover_tests( ${PROJECT_NAME}-test WORKING_DIRECTORY
+    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
