@@ -3,32 +3,30 @@
 #include <future>
 #include "pcmreader.h"
 
-using namespace std;
-
 int main()
 {
-    vector<string> filesPaths;
-    vector<future<tuple<int, vector<string>>>> futures;
+    std::vector<std::string> filesPaths;
+    std::vector<std::future<std::tuple<int, std::vector<std::string>>>> futures;
 
-    for (auto & file : filesystem::directory_iterator("data_raw_32_rand_ch_offs")) {
-        string filePath = file.path().string();
+    for (auto & file : std::filesystem::directory_iterator("data_raw_32_rand_ch_offs")) {
+        std::string filePath = file.path().string();
         futures.push_back(async(&PCMReader::getCountOfBreaks, PCMReader(), filePath));
         filesPaths.push_back(filePath);
     }
 
-    vector<int> countOfBreaks;
+    std::vector<int> countOfBreaks;
     for (unsigned int i = 0; i < filesPaths.size(); i++) {
         int countOfBreaksInFile;
-        vector<string> breaks;
-        tie(countOfBreaksInFile, breaks) = futures[i].get();
+        std::vector<std::string> breaks;
+        std::tie(countOfBreaksInFile, breaks) = futures[i].get();
         for (auto it = breaks.begin(); it != breaks.end(); it++) {
-            cout << *it;
+            std::cout << *it;
         }
         countOfBreaks.push_back(countOfBreaksInFile);
     }
 
     for (unsigned int i = 0; i < countOfBreaks.size(); i++) {
-        cout << "Count of breaks of file " << filesPaths[i] << ": " << countOfBreaks[i] << endl;
+        std::cout << "Count of breaks of file " << filesPaths[i] << ": " << countOfBreaks[i] << std::endl;
     }
     // thread t1(&PCMReader::getCountOfBreaks, PCMReader(), filesPaths[0]);
     // thread t2(&PCMReader::getCountOfBreaks, PCMReader(), filesPaths[1]);
