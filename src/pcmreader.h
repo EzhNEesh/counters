@@ -9,7 +9,7 @@ class PCMReader
 {
 public:
     PCMReader();
-    std::tuple <int, std::vector<std::string>> getCountOfBreaks(const std::string &);
+    std::tuple <int, std::vector<std::string>> getCountOfBreaks(const std::string &filePath);
 };
 
 #endif // PCMREADER_H
